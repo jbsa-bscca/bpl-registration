@@ -1,4 +1,4 @@
-import { useState, useRef, type FormEvent } from 'react';
+import { useState, useRef } from 'react';
 import { Upload, CheckCircle2, User, Phone, MapPin, Trophy, Shield, Activity, Image as ImageIcon, Send } from 'lucide-react';
 import './index.css';
 
@@ -95,25 +95,33 @@ function App() {
 
   if (isSuccess) {
     return (
-      <div className="app-container">
-        <div className="success-message">
-          <CheckCircle2 className="success-icon" />
-          <h2>Registration Successful!</h2>
-          <p>Your details have been submitted to the tournament committee.</p>
-          <button 
-            className="btn-submit" 
-            style={{ marginTop: '2rem' }}
-            onClick={() => window.location.reload()}
-          >
-            Register Another Player
-          </button>
+      <div className="layout-wrapper">
+        <div className="app-container">
+          <div className="success-message">
+            <CheckCircle2 className="success-icon" />
+            <h2>Registration Successful!</h2>
+            <p>Your details have been submitted to the tournament committee.</p>
+            <button 
+              className="btn-submit" 
+              style={{ marginTop: '2rem' }}
+              onClick={() => window.location.reload()}
+            >
+              Register Another Player
+            </button>
+          </div>
+        </div>
+
+        <div className="footer-card">
+          <p className="footer-brand">by BandhanNova Ecosystem</p>
+          <p className="footer-copyright">© 2026 BandhanNova All Right Reserved | JBSA Beltala | BPL 2026</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="app-container">
+    <div className="layout-wrapper">
+      <div className="app-container">
       <div className="header">
         <h1>BPL 2026 SEASON 1</h1>
         <p>Official Player Registration Form</p>
@@ -285,6 +293,12 @@ function App() {
           )}
         </button>
       </form>
+      </div>
+
+      <div className="footer-card">
+        <p className="footer-brand">by BandhanNova Ecosystem</p>
+        <p className="footer-copyright">© 2026 BandhanNova All Right Reserved | JBSA Beltala | BPL 2026</p>
+      </div>
     </div>
   );
 }
