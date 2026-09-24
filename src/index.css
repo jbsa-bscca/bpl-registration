@@ -30,7 +30,7 @@ body {
 }
 
 .app-container {
-  width: 100%;
+  width: calc(100% - 2rem);
   max-width: 600px;
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
@@ -244,4 +244,9 @@ select.form-control option {
   .header h1 {
     font-size: 2rem;
   }
+}
+
+.required {
+  color: var(--error);
+  margin-left: 4px;
 }

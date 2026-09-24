@@ -46,13 +46,23 @@ function App() {
     }
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  // Validation for submit button state
+  const isFormComplete = 
+    formData.playerName.trim() !== '' &&
+    formData.contactNumber.trim() !== '' &&
+    formData.villageName.trim() !== '' &&
+    formData.playerRole !== '' &&
+    formData.battingRole !== '' &&
+    formData.bowlingRole !== '' &&
+    playerPhoto !== null &&
+    paymentScreenshot !== null;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     
-    // Validation
-    if (!playerPhoto || !paymentScreenshot) {
-      setError('Please upload both Player Photo and Payment Screenshot.');
+    if (!isFormComplete) {
+      setError('Please fill all the required fields and upload both images.');
       return;
     }
 
@@ -63,8 +73,8 @@ function App() {
       Object.entries(formData).forEach(([key, value]) => {
         data.append(key, value);
       });
-      data.append('playerPhoto', playerPhoto);
-      data.append('paymentScreenshot', paymentScreenshot);
+      data.append('playerPhoto', playerPhoto as Blob);
+      data.append('paymentScreenshot', paymentScreenshot as Blob);
 
       const response = await fetch('/api/submit', {
         method: 'POST',
@@ -105,14 +115,14 @@ function App() {
   return (
     <div className="app-container">
       <div className="header">
-        <h1>Tournament 2026</h1>
+        <h1>BPL 2026 SEASON 1</h1>
         <p>Official Player Registration Form</p>
       </div>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="playerName">
-            <User size={18} /> Player Name
+            <User size={18} /> Player Name <span className="required">*</span>
           </label>
           <input
             type="text"
@@ -128,7 +138,7 @@ function App() {
 
         <div className="form-group">
           <label htmlFor="contactNumber">
-            <Phone size={18} /> Contact Number
+            <Phone size={18} /> Contact Number <span className="required">*</span>
           </label>
           <input
             type="tel"
@@ -146,14 +156,14 @@ function App() {
 
         <div className="form-group">
           <label htmlFor="villageName">
-            <MapPin size={18} /> Village/Team Name
+            <MapPin size={18} /> Village Name <span className="required">*</span>
           </label>
           <input
             type="text"
             id="villageName"
             name="villageName"
             className="form-control"
-            placeholder="Enter village or team name"
+            placeholder="Enter village name"
             required
             value={formData.villageName}
             onChange={handleInputChange}
@@ -162,7 +172,7 @@ function App() {
 
         <div className="form-group">
           <label htmlFor="playerRole">
-            <Trophy size={18} /> Player Role
+            <Trophy size={18} /> Player Role <span className="required">*</span>
           </label>
           <select
             id="playerRole"
@@ -182,7 +192,7 @@ function App() {
 
         <div className="form-group">
           <label htmlFor="battingRole">
-            <Shield size={18} /> Batting Style
+            <Shield size={18} /> Batting Style <span className="required">*</span>
           </label>
           <select
             id="battingRole"
@@ -200,7 +210,7 @@ function App() {
 
         <div className="form-group">
           <label htmlFor="bowlingRole">
-            <Activity size={18} /> Bowling Style
+            <Activity size={18} /> Bowling Style <span className="required">*</span>
           </label>
           <select
             id="bowlingRole"
@@ -219,7 +229,7 @@ function App() {
 
         <div className="form-group">
           <label>
-            <User size={18} /> Player Photo
+            <User size={18} /> Player Photo <span className="required">*</span>
           </label>
           <div 
             className="file-upload-wrapper" 
@@ -242,7 +252,7 @@ function App() {
 
         <div className="form-group">
           <label>
-            <Upload size={18} /> Payment Screenshot
+            <Upload size={18} /> Payment Screenshot <span className="required">*</span>
           </label>
           <div 
             className="file-upload-wrapper"
@@ -265,7 +275,7 @@ function App() {
 
         {error && <div className="error-text">{error}</div>}
 
-        <button type="submit" className="btn-submit" disabled={isSubmitting}>
+        <button type="submit" className="btn-submit" disabled={isSubmitting || !isFormComplete}>
           {isSubmitting ? (
             <div className="spinner"></div>
           ) : (
