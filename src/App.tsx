@@ -123,7 +123,9 @@ function App() {
     <div className="layout-wrapper">
       <div className="app-container">
       <div className="header">
-        <img src="/logo.png" alt="BPL Logo" style={{ width: '100px', height: '100px', objectFit: 'contain', marginBottom: '1rem' }} />
+        <div className="logo-container">
+          <img src="/logo.png" alt="BPL Logo" className="header-logo" />
+        </div>
         <h1>BPL 2026 SEASON 1</h1>
         <p>Official Player Registration Form</p>
       </div>
