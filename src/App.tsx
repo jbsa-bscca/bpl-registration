@@ -123,6 +123,7 @@ function App() {
     <div className="layout-wrapper">
       <div className="app-container">
       <div className="header">
+        <img src="/logo.png" alt="BPL Logo" style={{ width: '100px', height: '100px', objectFit: 'contain', marginBottom: '1rem' }} />
         <h1>BPL 2026 SEASON 1</h1>
         <p>Official Player Registration Form</p>
       </div>
@@ -279,6 +280,15 @@ function App() {
               <span>{paymentScreenshot ? paymentScreenshot.name : 'Click to upload screenshot'}</span>
             </div>
           </div>
+        </div>
+
+        <div className="qr-code-section" style={{ textAlign: 'center', margin: '2rem 0', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '1rem', border: '1px solid var(--glass-border)' }}>
+          <p style={{ marginBottom: '1rem', color: 'var(--text-main)', fontWeight: '500' }}>Scan this QR Code to pay the registration fee of 100/-</p>
+          <img 
+            src="/qr-code.png" 
+            alt="Payment QR Code" 
+            style={{ maxWidth: '250px', width: '100%', height: 'auto', borderRadius: '0.75rem', border: '2px solid var(--primary)', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.5)' }} 
+          />
         </div>
 
         {error && <div className="error-text">{error}</div>}
